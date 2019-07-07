@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of transport</title>
+</head>
+
+<div style="float: left; margin-top: 200px;margin-right: 10px">
+    <form th:action="@{/create}" method="post">
+        <label>state number</label>
+        <input type="text" name="stateNumber" id="stateNumber"><br>
+        <select id="equipments" name="equipments">
+            <option th:value="off">Выберите идентификатор</option>
+            <option th:each="equipment : ${equipments}" th:value="${equipment.uin}" th:text="${equipment.uin}">
+            </option>
+        </select>
+        <select id="parks" name="parks">
+            <option th:value="off">Выберите парк</option>
+            <option th:each="park : ${parks}" th:value="${park.parkName}" th:text="${park.parkName}">
+            </option>
+        </select>
+            <br/>
+            <p><input type="submit" value="Добавить транспортное средство" name="add" class="btn btn-default"></p>
+    </form>
+</div>
+<table>
+    <tr>
+        <td>ID</td>
+        <td>Регистрационный знак</td>
+        <td>Бортовое оборудование</td>
+        <td>Наименование парка</td>
+    </tr>
+    <tr th:each="transport : ${transports}">
+        <form th:action="@{/list}" th:method="GET">
+            <td th:text="${transport.id}"></td>
+            <td th:text="${transport.stateNumber}"></td>
+            <td th:text="${transport.equipment.uin}"></td>
+            <td th:text="${transport.park.parkName}"></td>
+        </form>
+    </tr>
+</table>
+</br>
+</body>
+</html>
